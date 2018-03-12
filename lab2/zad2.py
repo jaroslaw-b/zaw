@@ -12,6 +12,9 @@ i_stop = 2050
 
 for i in range(i_start, i_stop, i_step):
     I_prev = I
+    mask = cv2.imread('sq/office/groundtruth/gt00' + str('{0:04}'.format(i)) + '.png')
+    mask = 255*mask
+    mask = cv2.threshold(mask, 200, 255, cv2.THRESH_BINARY)
     I_clr = cv2.imread('sq/office/input/in00' + str('{0:04}'.format(i)) + '.jpg')
     I = cv2.cvtColor(I_clr, cv2.COLOR_BGR2GRAY)
     I_diff = cv2.absdiff(I, I_prev)
@@ -31,7 +34,8 @@ for i in range(i_start, i_stop, i_step):
         cv2.putText(I_clr, "%f" % stats[pi, 4], (stats[pi, 0], stats[pi, 1]), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 0, 0))
         cv2.putText(I_clr, "%d" % pi, (np.int(centroids[pi, 0]), np.int(centroids[pi, 1])), cv2.FONT_HERSHEY_SIMPLEX, 1, (255, 0, 0))
 
-
+    mask = mask[0]
 
     cv2.imshow("I", I_clr)
+    cv2.imshow("mask", mask)
     cv2.waitKey(10)
