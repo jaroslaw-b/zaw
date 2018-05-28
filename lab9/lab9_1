@@ -1,0 +1,58 @@
+import cv2
+import numpy as np
+from matplotlib import pyplot
+from numpy import fft
+
+
+template = cv2.imread('obrazy_Mellin/wzor.pgm', 0)
+img = cv2.imread('obrazy_Mellin/domek_r0.pgm', 0)
+template2 = np.zeros(img.shape)
+
+template2[img.shape[0]//2 - template.shape[0]//2:(img.shape[0]//2) + template.shape[0]//2, img.shape[1]//2 -
+                                                                                               template.shape[1]//2:
+                                                                                               (img.shape[1]//2)
+                                                                                        + template.shape[1]//2] \
+                                                                                                = template
+
+size_x = img.shape[0]
+size_y = img.shape[1]
+template2_shifted = fft.fftshift(template2)
+# template2_shifted = template2
+template2_fft = fft.fft2(template2_shifted)
+
+img_fft = fft.fft2(img)
+img_corr = fft.ifft2(template2_fft * img_fft)
+magnitude_img_corr = np.abs(img_corr)
+y,x = np.unravel_index(np.argmax(magnitude_img_corr), magnitude_img_corr.shape)
+
+img_corr = img_corr/abs(img_corr)
+y_angle, x_angle = np.unravel_index(np.argmax(img_corr), img_corr.shape)
+
+
+
+dx = x - size_x //2
+dy = y - size_y//2
+dx_angle = x_angle - size_x //2
+dy_angle = y_angle - size_y//2
+
+x += dx
+y += dy
+x_angle += dx_angle
+y_angle += dy_angle
+
+macierz_translacji = np.float32([[1,0,dx],[0,1,dy]])
+obraz_przesuniety = cv2.warpAffine(template2_shifted, macierz_translacji, (template2_shifted.shape[1], template2_shifted.shape[0]))
+
+print(y, x)
+print(y_angle, x_angle)
+
+pyplot.figure(0)
+pyplot.imshow(template2_shifted, cmap='gray')
+pyplot.figure(1)
+pyplot.imshow(img, cmap='gray')
+pyplot.plot([y], [x], 'ro')
+pyplot.plot([y_angle], [x_angle], 'go')
+pyplot.figure(2)
+pyplot.imshow(magnitude_img_corr, cmap='gray')
+pyplot.show()
+

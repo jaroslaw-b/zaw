@@ -50,7 +50,7 @@ sobel_orient2 = np.arctan2(sobely2, sobelx2)
 
 h = img2.shape[0]
 w = img2.shape[1]
-hough_space = np.zeros((2*h, 2*w))
+hough_space = np.zeros((550, 550))
 
 for i in range(h):
     for j in range(w):
