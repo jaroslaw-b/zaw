@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="PYTHON_MODULE" version="4">
   <component name="NewModuleRootManager">
-    <content url="file://$USER_HOME$/inf_1/Radoslaw-Serafin/mdig-agh-air_inf1_lab_py_exercises-e80a198a7437/skeletons" />
-    <content url="file://$USER_HOME$/inf_1/Radoslaw-Serafin/mdig-agh-air_inf1_lab_py_exercises-e80a198a7437/solutions" />
     <content url="file://$MODULE_DIR$">
       <excludeFolder url="file://$MODULE_DIR$/venv" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.5 (jb)" jdkType="Python SDK" />
+    <content url="file://$USER_HOME$/inf_1/Radoslaw-Serafin/mdig-agh-air_inf1_lab_py_exercises-e80a198a7437/skeletons" />
+    <content url="file://$USER_HOME$/inf_1/Radoslaw-Serafin/mdig-agh-air_inf1_lab_py_exercises-e80a198a7437/solutions" />
+    <orderEntry type="jdk" jdkName="Python 3.6" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="TestRunnerService">
